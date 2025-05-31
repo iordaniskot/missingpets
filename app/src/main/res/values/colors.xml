@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Primary colors for pet-themed app -->
+    <color name="primary">#FF6B35</color>           <!-- Warm orange -->
+    <color name="primary_variant">#E55100</color>   <!-- Darker orange -->
+    <color name="primary_light">#FFF3E0</color>     <!-- Light orange for backgrounds -->
+    <color name="secondary">#4CAF50</color>         <!-- Success green -->
+    <color name="secondary_variant">#388E3C</color> <!-- Darker green -->
+    <color name="accent">#03DAC5</color>            <!-- Teal accent -->
+    <color name="error">#F44336</color>             <!-- Error red -->
+    <color name="surface">#FFFFFF</color>           <!-- Card backgrounds -->
+    <color name="background">#F5F5F5</color>        <!-- App background -->
+    <color name="background_light">#FAFAFA</color>  <!-- Lighter background -->
+    
+    <!-- Text colors -->
+    <color name="text_primary">#212121</color>      <!-- Primary text -->
+    <color name="text_secondary">#757575</color>    <!-- Secondary text -->
+    <color name="text_hint">#9E9E9E</color>         <!-- Hint text -->
+</resources>

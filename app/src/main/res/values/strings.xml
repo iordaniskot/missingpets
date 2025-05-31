@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">Missing Pets</string>
+    <string name="app_tagline">Reuniting families, one pet at a time</string>
+    
+    <!-- Authentication -->
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or">OR</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="accept_terms">I accept the Terms and Conditions</string>
+    
+    <!-- Screen titles and subtitles -->
+    <string name="login_subtitle">Welcome back! Help reunite pets with their families.</string>
+    <string name="register_subtitle">Join our community and help find missing pets.</string>
+    
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="app_logo">App Logo</string>
+    <string name="loading">Loading...</string>
+    
+    <!-- Error messages -->
+    <string name="error_invalid_email">Please enter a valid email address</string>
+    <string name="error_empty_password">Password cannot be empty</string>
+    <string name="error_password_too_short">Password must be at least 6 characters</string>
+    <string name="error_passwords_dont_match">Passwords do not match</string>
+    <string name="error_empty_name">Name cannot be empty</string>
+    <string name="error_empty_phone">Phone number cannot be empty</string>
+    <string name="error_terms_not_accepted">Please accept the terms and conditions</string>
+    <string name="error_login_failed">Login failed. Please check your credentials.</string>
+    <string name="error_registration_failed">Registration failed. Please try again.</string>
+    <string name="error_network">Network error. Please check your connection.</string>
+    
+    <!-- Success messages -->
+    <string name="registration_success">Account created successfully!</string>
+    <string name="login_success">Welcome back!</string>
+    
+    <!-- Main menu -->
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    
+    <!-- Main screen -->
+    <string name="welcome_to_missing_pets">Welcome to Missing Pets</string>
+    <string name="report_missing_pet">Report Missing Pet</string>
+    <string name="search_found_pets">Search Found Pets</string>
+    <string name="view_map">View Map</string>
+    <string name="recent_posts">Recent Posts</string>
+    <string name="development_phase">Development Phase</string>
+    <string name="auth_complete">Authentication system is now complete and functional.</string>
+    <string name="next_features">Next features to be implemented:</string>
+    <string name="feature_main_screen">• Main dashboard with pet listings</string>
+    <string name="feature_map">• Interactive map with pet locations</string>
+    <string name="feature_profile">• User profile management</string>
+</resources>
