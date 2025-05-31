@@ -1,6 +1,6 @@
 package com.example.missingpets.utils;
 
-public class Constants {
+public class Constants {    
     public static final String BASE_URL = "https://missingpets.rhodesholidaysvillas.com/";
     public static final String SOCKET_URL = "https://missingpets.rhodesholidaysvillas.com/";
     public static final long TIMEOUT_SECONDS = 30L;

@@ -245,30 +245,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
+                android:padding="20dp">                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Last Known Location"
+                    android:text="Last Known Location (GPS Coordinates)"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Location -->
+                    android:layout_marginBottom="16dp" /><!-- Location -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/tilLocation"                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Address or Location"
-                    app:startIconDrawable="@drawable/ic_location">
+                    android:hint="Location Coordinates (Tap to select on map)"
+                    app:startIconDrawable="@drawable/ic_location"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_my_location">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress" />
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:clickable="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -317,67 +317,7 @@
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Contact Information Section -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/surface">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Contact Information"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Phone Number -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Phone Number"
-                    app:startIconDrawable="@drawable/ic_phone">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Additional Contact Info -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Additional Contact Information (optional)">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etContactInfo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:lines="3"
-                        android:gravity="top" />
-
-                </com.google.android.material.textfield.TextInputLayout>            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Submit Button -->
+        </com.google.android.material.card.MaterialCardView>        <!-- Submit Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmitReport"
             android:layout_width="match_parent"

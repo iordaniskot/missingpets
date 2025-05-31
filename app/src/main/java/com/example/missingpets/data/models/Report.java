@@ -1,10 +1,13 @@
 package com.example.missingpets.data.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 public class Report implements Serializable {
+    @SerializedName("_id")
     private String id;
     private String pet; // ObjectId as String, required
     private String reporter; // ObjectId as String, required  

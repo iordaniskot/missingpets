@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         
         preferenceManager = PreferenceManager.getInstance(this);
         
+        // Set up toolbar
+        setSupportActionBar(findViewById(R.id.toolbar));
+        
         // Check if user is logged in
         if (!preferenceManager.isLoggedIn()) {
             redirectToLogin();
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         
         // Set up card click listeners
         setupCardClickListeners();
+        
+        // Set up logout button
+        findViewById(R.id.btnLogout).setOnClickListener(v -> logout());
     }
     
     private void setupCardClickListeners() {

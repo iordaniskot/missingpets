@@ -1,12 +1,15 @@
 package com.example.missingpets.data.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 public class Pet implements Serializable {
+    @SerializedName("_id")
     private String id;
-    private String owner; // ObjectId as String, optional
+    private User owner; // User object, optional
     private String createdBy; // ObjectId as String, required
     private String name; // optional
     private String breed; // optional
@@ -16,7 +19,7 @@ public class Pet implements Serializable {
     private List<String> photos; // array of CDN URLs
     private boolean isOwnedByCreator; // default: false
     private Date createdAt;
-    private Date updatedAt;    public Pet() {
+    private Date updatedAt;public Pet() {
         // Default constructor for JSON parsing
         this.isOwnedByCreator = false; // default value
     }
@@ -37,10 +40,8 @@ public class Pet implements Serializable {
 
     // Getters and Setters
     public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getOwner() { return owner; }
-    public void setOwner(String owner) { this.owner = owner; }
+    public void setId(String id) { this.id = id; }    public User getOwner() { return owner; }
+    public void setOwner(User owner) { this.owner = owner; }
 
     public String getCreatedBy() { return createdBy; }
     public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
@@ -70,9 +71,11 @@ public class Pet implements Serializable {
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 
     public Date getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
-
-    // Helper methods
+    public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }    // Helper methods
+    public String getOwnerId() {
+        return (owner != null) ? owner.getId() : null;
+    }
+    
     public String getDisplayImageUrl() {
         return (photos != null && !photos.isEmpty()) ? photos.get(0) : null;
     }

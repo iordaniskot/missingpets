@@ -3,6 +3,7 @@ package com.example.missingpets.ui.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -72,10 +73,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 setLoading(false);
-                
-                if (response.isSuccessful() && response.body() != null) {
+                  if (response.isSuccessful() && response.body() != null) {
                     AuthResponse authResponse = response.body();
-                      // Save user data
+                    
+                    // Debug logging for login response
+                    Log.d("LoginActivity", "Login successful!");
+                    Log.d("LoginActivity", "Token: " + (authResponse.getToken() != null ? "Present (length=" + authResponse.getToken().length() + ")" : "NULL"));
+                    Log.d("LoginActivity", "User: " + (authResponse.getUser() != null ? "Present" : "NULL"));
+                    
+                    if (authResponse.getUser() != null) {
+                        Log.d("LoginActivity", "User ID: " + authResponse.getUser().getId());
+                        Log.d("LoginActivity", "User Email: " + authResponse.getUser().getEmail());
+                        Log.d("LoginActivity", "User Name: " + authResponse.getUser().getName());
+                        Log.d("LoginActivity", "User Phone: " + authResponse.getUser().getPhone());
+                    }
+                    
+                    // Save user data
                     preferenceManager.saveAuthToken(authResponse.getToken());
                     if (authResponse.getUser() != null) {
                         preferenceManager.saveUserInfo(
@@ -84,6 +97,10 @@ public class LoginActivity extends AppCompatActivity {
                                 authResponse.getUser().getName(),
                                 authResponse.getUser().getPhone()
                         );
+                        
+                        // Debug: Verify data was saved
+                        Log.d("LoginActivity", "Data saved - User ID from prefs: " + preferenceManager.getUserId());
+                        Log.d("LoginActivity", "Data saved - Token from prefs: " + (preferenceManager.getAuthToken() != null ? "Present" : "NULL"));
                     }
                     
                     Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();

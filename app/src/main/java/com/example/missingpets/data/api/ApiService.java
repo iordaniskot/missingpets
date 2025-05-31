@@ -3,6 +3,7 @@ package com.example.missingpets.data.api;
 import com.example.missingpets.data.models.AuthRequest;
 import com.example.missingpets.data.models.AuthResponse;
 import com.example.missingpets.data.models.Pet;
+import com.example.missingpets.data.models.PetResponse;
 import com.example.missingpets.data.models.Report;
 import com.example.missingpets.data.models.RegisterRequest;
 import com.example.missingpets.data.models.User;
@@ -39,9 +40,8 @@ public interface ApiService {
     
     @GET("pets/{id}")
     Call<Pet> getPetById(@Header("Authorization") String token, @Path("id") String petId);
-    
-    @POST("pets")
-    Call<Pet> createPet(@Header("Authorization") String token, @Body Pet pet);
+      @POST("pets")
+    Call<PetResponse> createPet(@Header("Authorization") String token, @Body Pet pet);
       @PUT("pets/{id}")
     Call<Pet> updatePet(@Header("Authorization") String token, @Path("id") String petId, @Body Pet pet);
     
