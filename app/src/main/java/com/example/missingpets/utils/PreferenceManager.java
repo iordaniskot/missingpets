@@ -47,12 +47,12 @@ public class PreferenceManager {
     public String getAuthToken() {
         return sharedPreferences.getString(Constants.KEY_AUTH_TOKEN, null);
     }
-    
-    public void saveUserInfo(String userId, String email, String name) {
+      public void saveUserInfo(String userId, String email, String name, String phone) {
         sharedPreferences.edit()
                 .putString(Constants.KEY_USER_ID, userId)
                 .putString(Constants.KEY_USER_EMAIL, email)
                 .putString(Constants.KEY_USER_NAME, name)
+                .putString(Constants.KEY_USER_PHONE, phone)
                 .apply();
     }
     
@@ -63,21 +63,24 @@ public class PreferenceManager {
     public String getUserEmail() {
         return sharedPreferences.getString(Constants.KEY_USER_EMAIL, null);
     }
-    
-    public String getUserName() {
+      public String getUserName() {
         return sharedPreferences.getString(Constants.KEY_USER_NAME, null);
+    }
+    
+    public String getUserPhone() {
+        return sharedPreferences.getString(Constants.KEY_USER_PHONE, null);
     }
     
     public boolean isLoggedIn() {
         return getAuthToken() != null;
     }
-    
-    public void clearUserData() {
+      public void clearUserData() {
         sharedPreferences.edit()
                 .remove(Constants.KEY_AUTH_TOKEN)
                 .remove(Constants.KEY_USER_ID)
                 .remove(Constants.KEY_USER_EMAIL)
                 .remove(Constants.KEY_USER_NAME)
+                .remove(Constants.KEY_USER_PHONE)
                 .apply();
     }
 }

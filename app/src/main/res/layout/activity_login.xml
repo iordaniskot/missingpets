@@ -68,12 +68,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
-
-                <!-- Email Input -->
+                android:padding="24dp">                <!-- Email Input -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilEmail"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
@@ -88,10 +86,9 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Password Input -->
-                <com.google.android.material.textfield.TextInputLayout
+                <!-- Password Input -->                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilPassword"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -175,10 +172,9 @@
 
         </LinearLayout>
 
-        <!-- Sign Up Button -->
-        <com.google.android.material.button.MaterialButton
+        <!-- Sign Up Button -->        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignUp"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"

@@ -77,14 +77,14 @@ public class RegisterActivity extends AppCompatActivity {
                 
                 if (response.isSuccessful() && response.body() != null) {
                     AuthResponse authResponse = response.body();
-                    
-                    // Save user data
+                      // Save user data
                     preferenceManager.saveAuthToken(authResponse.getToken());
                     if (authResponse.getUser() != null) {
                         preferenceManager.saveUserInfo(
                                 authResponse.getUser().getId(),
                                 authResponse.getUser().getEmail(),
-                                authResponse.getUser().getName()
+                                authResponse.getUser().getName(),
+                                authResponse.getUser().getPhone()
                         );
                     }
                     

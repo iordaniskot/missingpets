@@ -37,11 +37,27 @@
             android:name=".ui.auth.RegisterActivity"
             android:exported="false"
             android:parentActivityName=".ui.auth.LoginActivity" />
-        
-        <!-- Main Activity -->
+          <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+            
+        <!-- Pet List Activity -->
+        <activity
+            android:name=".ui.pets.PetListActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+              <!-- Pet Detail Activity -->
+        <activity
+            android:name=".ui.pets.PetDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.pets.PetListActivity" />
+            
+        <!-- Report Pet Activity -->
+        <activity
+            android:name=".ui.pets.ReportPetActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
             
     </application>
 

@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.missingpets.ui.auth.LoginActivity;
+import com.example.missingpets.ui.pets.PetListActivity;
+import com.example.missingpets.ui.pets.ReportPetActivity;
 import com.example.missingpets.utils.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,11 +65,15 @@ public class MainActivity extends AppCompatActivity {
     
     private void setupCardClickListeners() {
         findViewById(R.id.cardReportMissing).setOnClickListener(v -> {
-            Toast.makeText(this, "Report Missing Pet feature coming soon!", Toast.LENGTH_SHORT).show();
+            // Navigate to Report Pet Activity
+            Intent intent = new Intent(this, ReportPetActivity.class);
+            startActivity(intent);
         });
         
         findViewById(R.id.cardSearchFound).setOnClickListener(v -> {
-            Toast.makeText(this, "Search Found Pets feature coming soon!", Toast.LENGTH_SHORT).show();
+            // Navigate to Pet List Activity
+            Intent intent = new Intent(this, PetListActivity.class);
+            startActivity(intent);
         });
         
         findViewById(R.id.cardViewMap).setOnClickListener(v -> {
