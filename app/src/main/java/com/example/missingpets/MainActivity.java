@@ -14,7 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.missingpets.ui.auth.LoginActivity;
-import com.example.missingpets.ui.pets.PetListActivity;
+import com.example.missingpets.ui.reports.MissingPetsActivity;
 import com.example.missingpets.ui.pets.ReportPetActivity;
 import com.example.missingpets.utils.PreferenceManager;
 
@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         });
         
         findViewById(R.id.cardSearchFound).setOnClickListener(v -> {
-            // Navigate to Pet List Activity
-            Intent intent = new Intent(this, PetListActivity.class);
+            // Navigate to Missing Pets Activity
+            Intent intent = new Intent(this, MissingPetsActivity.class);
             startActivity(intent);
         });
         

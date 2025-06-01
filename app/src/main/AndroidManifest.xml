@@ -64,12 +64,36 @@
             android:name=".ui.pets.ReportPetActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
-            
-        <!-- Map Location Picker Activity -->
+              <!-- Map Location Picker Activity -->
         <activity
             android:name=".ui.maps.MapLocationPickerActivity"
             android:exported="false"
             android:parentActivityName=".ui.pets.ReportPetActivity" />
-            </application>
+            
+        <!-- Missing Pets Activity -->
+        <activity
+            android:name=".ui.reports.MissingPetsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+            
+        <!-- Report Detail Activity -->
+        <activity
+            android:name=".ui.reports.ReportDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.reports.MissingPetsActivity" />
+            
+        <!-- Enhanced Report Detail Activity -->
+        <activity
+            android:name=".ui.reports.EnhancedReportDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.reports.MissingPetsActivity" />
+            
+        <!-- Map View Activity -->
+        <activity
+            android:name=".ui.reports.MapViewActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.reports.MissingPetsActivity" />
+            
+    </application>
 
 </manifest>

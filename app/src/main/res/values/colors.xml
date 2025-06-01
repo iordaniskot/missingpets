@@ -11,9 +11,11 @@
     <color name="secondary_variant">#388E3C</color> <!-- Darker green -->
     <color name="accent">#03DAC5</color>            <!-- Teal accent -->
     <color name="error">#F44336</color>             <!-- Error red -->
+    <color name="success">#4CAF50</color>           <!-- Success green -->
     <color name="surface">#FFFFFF</color>           <!-- Card backgrounds -->
     <color name="background">#F5F5F5</color>        <!-- App background -->
     <color name="background_light">#FAFAFA</color>  <!-- Lighter background -->
+    <color name="outline">#E0E0E0</color>           <!-- Border/outline color -->
     
     <!-- Text colors -->
     <color name="text_primary">#212121</color>      <!-- Primary text -->

@@ -5,6 +5,7 @@ import com.example.missingpets.data.models.AuthResponse;
 import com.example.missingpets.data.models.Pet;
 import com.example.missingpets.data.models.PetResponse;
 import com.example.missingpets.data.models.Report;
+import com.example.missingpets.data.models.ReportsResponse;
 import com.example.missingpets.data.models.RegisterRequest;
 import com.example.missingpets.data.models.User;
 
@@ -50,14 +51,15 @@ public interface ApiService {
                                @Query("q") String query,
                                @Query("type") String type,
                                @Query("status") String status,
-                               @Query("location") String location);
-    
-    // Report endpoints
+                               @Query("location") String location);    // Report endpoints
     @POST("reports")
     Call<Report> createReport(@Header("Authorization") String token, @Body Report report);
     
     @GET("reports")
-    Call<List<Report>> getReports(@Header("Authorization") String token);
+    Call<ReportsResponse> getReports(@Header("Authorization") String token);
+    
+    @GET("reports")
+    Call<ReportsResponse> getReportsByStatus(@Header("Authorization") String token, @Query("status") String status);
     
     @GET("reports/{id}")
     Call<Report> getReportById(@Header("Authorization") String token, @Path("id") String reportId);
