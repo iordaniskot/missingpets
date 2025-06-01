@@ -29,6 +29,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -64,11 +66,11 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
     private TextInputEditText etRadius;
     private MaterialButton btnSearch;
     private FloatingActionButton fabMyLocation;
-    
-    // Data
+      // Data
     private List<ReportWithPet> reports = new ArrayList<>();
     private Map<Marker, ReportWithPet> markerReportMap = new HashMap<>();
     private LatLng currentUserLocation;
+    private Circle radiusCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,14 +173,13 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         if (!checkLocationPermission()) {
             requestLocationPermission();
             return;
-        }
-
-        try {
+        }        try {
             fusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, location -> {
                         if (location != null) {
                             currentUserLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentUserLocation, DEFAULT_ZOOM_LEVEL));
+                            drawRadiusCircle(); // Draw the radius circle first
                             searchNearbyReports();
                         } else {
                             Log.w(TAG, "Current location is null");
@@ -201,13 +202,14 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         }
 
         getCurrentLocationAndSearch();
-    }
-
-    private void searchNearbyReports() {
+    }    private void searchNearbyReports() {
         if (currentUserLocation == null) {
             Toast.makeText(this, "Please enable location services", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // Update the radius circle with current input
+        drawRadiusCircle();
 
         double radiusKm;
         try {
@@ -278,9 +280,13 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
             return;
         }
 
-        // Clear existing markers
+        // Clear existing markers and circle
         mMap.clear();
         markerReportMap.clear();
+        radiusCircle = null;
+
+        // Draw radius circle if we have a current location
+        drawRadiusCircle();
 
         // Add markers for each report
         for (ReportWithPet report : reports) {
@@ -309,6 +315,35 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         }
 
         Toast.makeText(this, "Found " + reports.size() + " missing pets nearby", Toast.LENGTH_SHORT).show();
+    }
+
+    private void drawRadiusCircle() {
+        if (currentUserLocation == null || mMap == null) {
+            return;
+        }
+
+        // Get current radius from input field
+        double radiusKm;
+        try {
+            String radiusText = etRadius.getText().toString().trim();
+            radiusKm = radiusText.isEmpty() ? DEFAULT_RADIUS_KM : Double.parseDouble(radiusText);
+        } catch (NumberFormatException e) {
+            radiusKm = DEFAULT_RADIUS_KM;
+        }
+
+        // Convert km to meters for circle
+        double radiusMeters = radiusKm * 1000;
+
+        // Create circle options with low opacity
+        CircleOptions circleOptions = new CircleOptions()
+                .center(currentUserLocation)
+                .radius(radiusMeters)
+                .strokeColor(0x660000FF) // Blue with low opacity (40% alpha)
+                .fillColor(0x220000FF)   // Blue with very low opacity (13% alpha)
+                .strokeWidth(2);
+
+        // Add circle to map
+        radiusCircle = mMap.addCircle(circleOptions);
     }
 
     private String getMarkerTitle(ReportWithPet report) {
