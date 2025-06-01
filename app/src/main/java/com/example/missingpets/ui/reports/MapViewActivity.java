@@ -124,11 +124,12 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        Log.d(TAG, "Map is ready");
-
-        // Set up map UI settings
+        Log.d(TAG, "Map is ready");        // Set up map UI settings
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(false);
+        
+        // Set the padding for the zoom controls to move them higher up to avoid overlapping with FAB
+        mMap.setPadding(0, 0, 0, 180); // 180dp padding from bottom
 
         // Set up marker click listener
         mMap.setOnMarkerClickListener(this::onMarkerClick);
