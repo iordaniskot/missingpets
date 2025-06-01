@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.missingpets.R;
 import com.example.missingpets.data.models.ReportWithPet;
+import com.example.missingpets.ui.pets.PetDetailActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -63,8 +64,7 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Report Details");
         }
     }
-    
-    private void initViews() {
+      private void initViews() {
         ivReportImage = findViewById(R.id.ivReportImage);
         tvReportTitle = findViewById(R.id.tvReportTitle);
         chipStatus = findViewById(R.id.chipStatus);
@@ -75,6 +75,9 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
         tvReporterInfo = findViewById(R.id.tvReporterInfo);
         fabCall = findViewById(R.id.fabCall);
         fabMap = findViewById(R.id.fabMap);
+        
+        // Set up click listener for pet details to view full pet information
+        tvPetDetails.setOnClickListener(v -> viewPetDetails());
     }
     
     private void displayReportData() {
@@ -102,8 +105,7 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
         } else {
             tvDescription.setText("No description provided");
         }
-        
-        // Set pet details
+          // Set pet details
         if (report.getPet() != null) {
             StringBuilder petDetails = new StringBuilder();
             petDetails.append("Pet: ").append(report.getPet().getDisplayName()).append("\n");
@@ -121,12 +123,17 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
             }
             
             if (report.getPet().getHeight() > 0) {
-                petDetails.append("Height: ").append(report.getPet().getHeight()).append(" cm");
+                petDetails.append("Height: ").append(report.getPet().getHeight()).append(" cm\n");
             }
             
+            petDetails.append("\n📱 Tap here to view full pet details");
+            
             tvPetDetails.setText(petDetails.toString().trim());
+            tvPetDetails.setClickable(true);
+            tvPetDetails.setFocusable(true);
         } else {
             tvPetDetails.setText("Pet details not available");
+            tvPetDetails.setClickable(false);
         }
         
         // Set location
@@ -206,10 +213,19 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
             }
         });
     }
-    
-    private String capitalizeFirst(String text) {
+      private String capitalizeFirst(String text) {
         if (text == null || text.isEmpty()) return text;
         return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+    }
+    
+    private void viewPetDetails() {
+        if (report.getPet() != null) {
+            Intent intent = new Intent(this, PetDetailActivity.class);
+            intent.putExtra(PetDetailActivity.EXTRA_PET, report.getPet());
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Pet details not available", Toast.LENGTH_SHORT).show();
+        }
     }
     
     @Override

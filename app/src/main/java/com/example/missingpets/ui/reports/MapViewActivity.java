@@ -158,14 +158,12 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
             return true;
         }
         return false;
-    }
-
-    private void onInfoWindowClick(Marker marker) {
+    }    private void onInfoWindowClick(Marker marker) {
         ReportWithPet report = markerReportMap.get(marker);
         if (report != null) {
-            // Open report details
-            Intent intent = new Intent(this, ReportDetailActivity.class);
-            intent.putExtra(ReportDetailActivity.EXTRA_REPORT, report);
+            // Open enhanced report details which shows comprehensive pet information
+            Intent intent = new Intent(this, EnhancedReportDetailActivity.class);
+            intent.putExtra(EnhancedReportDetailActivity.EXTRA_REPORT, report);
             startActivity(intent);
         }
     }
