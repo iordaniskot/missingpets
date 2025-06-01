@@ -60,7 +60,14 @@ public interface ApiService {
     
     @GET("reports")
     Call<ReportsResponse> getReportsByStatus(@Header("Authorization") String token, @Query("status") String status);
-    
-    @GET("reports/{id}")
+      @GET("reports/{id}")
     Call<Report> getReportById(@Header("Authorization") String token, @Path("id") String reportId);
+    
+    // Geospatial search for reports within radius
+    @GET("reports")
+    Call<ReportsResponse> getReportsNearLocation(@Header("Authorization") String token,
+                                                @Query("lat") double latitude,
+                                                @Query("lng") double longitude,
+                                                @Query("radius") int radiusInMeters,
+                                                @Query("status") String status);
 }

@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.missingpets.ui.auth.LoginActivity;
 import com.example.missingpets.ui.reports.MissingPetsActivity;
+import com.example.missingpets.ui.reports.MapViewActivity;
 import com.example.missingpets.ui.pets.ReportPetActivity;
 import com.example.missingpets.utils.PreferenceManager;
 
@@ -75,15 +76,16 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ReportPetActivity.class);
             startActivity(intent);
         });
-        
-        findViewById(R.id.cardSearchFound).setOnClickListener(v -> {
+          findViewById(R.id.cardSearchFound).setOnClickListener(v -> {
             // Navigate to Missing Pets Activity
             Intent intent = new Intent(this, MissingPetsActivity.class);
             startActivity(intent);
         });
         
         findViewById(R.id.cardViewMap).setOnClickListener(v -> {
-            Toast.makeText(this, "Interactive Map feature coming soon!", Toast.LENGTH_SHORT).show();
+            // Navigate to Map View Activity
+            Intent intent = new Intent(this, MapViewActivity.class);
+            startActivity(intent);
         });
     }
     

@@ -147,15 +147,15 @@ public class MissingPetsActivity extends AppCompatActivity {
             filterDialog.setFilterListener(this::onFiltersApplied);
             filterDialog.show(getSupportFragmentManager(), "filter_dialog");
         });
-    }
-      private void setupMapViewFunctionality() {
+    }    private void setupMapViewFunctionality() {
         fabMapView.setOnClickListener(v -> {
             Intent intent = new Intent(this, MapViewActivity.class);
-            // TODO: Pass filtered reports to map view
-            // intent.putExtra(MapViewActivity.EXTRA_REPORTS, filteredReports);
+            // Pass filtered reports to map view
+            ArrayList<ReportWithPet> reportsToPass = new ArrayList<>(filteredReports);
+            intent.putExtra(MapViewActivity.EXTRA_REPORTS, reportsToPass);
             startActivity(intent);
         });
-    }    private void loadReports(String status) {
+    }private void loadReports(String status) {
         Log.d("MissingPetsActivity", "loadReports() called with status: " + status);
         
         progressBar.setVisibility(View.VISIBLE);
