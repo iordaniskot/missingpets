@@ -118,11 +118,11 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
                 petDetails.append("Color: ").append(capitalizeFirst(report.getPet().getColor())).append("\n");
             }
             
-            if (report.getPet().getWeight() > 0) {
+            if (report.getPet().getWeight() != null && report.getPet().getWeight() > 0) {
                 petDetails.append("Weight: ").append(report.getPet().getWeight()).append(" kg\n");
             }
             
-            if (report.getPet().getHeight() > 0) {
+            if (report.getPet().getHeight() != null && report.getPet().getHeight() > 0) {
                 petDetails.append("Height: ").append(report.getPet().getHeight()).append(" cm\n");
             }
             

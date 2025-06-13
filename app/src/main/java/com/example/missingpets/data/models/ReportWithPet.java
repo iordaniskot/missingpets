@@ -132,6 +132,16 @@ public class ReportWithPet implements Serializable {
         reportWithPet.setCreatedAt(report.getCreatedAt());
         reportWithPet.setUpdatedAt(report.getUpdatedAt());
         
+        // Copy pet object - this was missing!
+        if (report.getPet() != null) {
+            reportWithPet.setPet(report.getPet());
+        }
+        
+        // Copy reporter object - this was also missing!
+        if (report.getReporter() != null) {
+            reportWithPet.setReporter(report.getReporter());
+        }
+        
         // Convert location
         if (report.getLocation() != null) {
             ReportLocation newLocation = new ReportLocation();
