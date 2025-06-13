@@ -1,8 +1,18 @@
 package com.example.missingpets.utils;
 
 public class Constants {    
-    public static final String BASE_URL = "https://missingpets.rhodesholidaysvillas.com/";
-    public static final String SOCKET_URL = "https://missingpets.rhodesholidaysvillas.com/";
+    // Production URLs
+    // public static final String BASE_URL = "https://missingpets.rhodesholidaysvillas.com/";
+    // public static final String SOCKET_URL = "https://missingpets.rhodesholidaysvillas.com/";
+    
+    // Development URLs
+    // For Android Emulator (use this when testing on emulator)
+    public static final String BASE_URL = "http://10.0.2.2:3000/";
+    public static final String SOCKET_URL = "http://10.0.2.2:3000/";
+    
+    // For Physical Device (uncomment these lines and comment the emulator lines above when testing on a real device)
+    // public static final String BASE_URL = "http://192.168.2.27:3000/";
+    // public static final String SOCKET_URL = "http://192.168.2.27:3000/";
     public static final long TIMEOUT_SECONDS = 30L;
     public static final int MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
       // SharedPreferences keys
