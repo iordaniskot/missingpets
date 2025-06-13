@@ -28,7 +28,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -323,26 +325,28 @@ public class ReportPetActivity extends AppCompatActivity {
         Log.d("ReportPetActivity", "createReport called with petId: " + petId + ", authToken available: " + (authToken != null));
         Log.d("ReportPetActivity", "Current user ID for report: " + preferenceManager.getUserId());
         
-        // Create Report object with status and location information
-        Report report = new Report();
-        report.setPet(petId);
-        report.setReporter(preferenceManager.getUserId());
-        report.setStatus(Report.STATUS_LOST); // This is a "missing pet" report
+        // Create request using HashMap to avoid object serialization issues
+        Map<String, Object> request = new HashMap<>();
+        request.put("pet", petId);
+        request.put("reporter", preferenceManager.getUserId());
+        request.put("status", "lost"); // This is a "missing pet" report
         
         // Only set description if it's not empty
         String description = etDescription.getText().toString().trim();
         if (!description.isEmpty()) {
-            report.setDescription(description);
+            request.put("description", description);
         }
           // Create location in GeoJSON format using selected coordinates
-        Report.ReportLocation reportLocation = new Report.ReportLocation(selectedLongitude, selectedLatitude);
-        report.setLocation(reportLocation);
+        Map<String, Object> location = new HashMap<>();
+        location.put("type", "Point");
+        location.put("coordinates", new double[]{selectedLongitude, selectedLatitude});
+        request.put("location", location);
         
         // Note: Photos will be handled separately when image upload is implemented
-        // report.setPhotos(photoUrls);
+        // request.put("photos", photoUrls);
         
         // Submit Report to API
-        Call<Report> reportCall = ApiClient.getApiService().createReport(authToken, report);
+        Call<Report> reportCall = ApiClient.getApiService().createReport(authToken, request);
         reportCall.enqueue(new Callback<Report>() {
             @Override
             public void onResponse(Call<Report> call, Response<Report> response) {
@@ -371,11 +375,11 @@ public class ReportPetActivity extends AppCompatActivity {
                         errorMessage += " Unable to parse error details.";
                     }
                     
-                    // Log the Report object being sent for debugging
-                    Log.d("ReportPetActivity", "Report object sent: " + 
-                          "Pet=" + report.getPet() + 
-                          ", Reporter=" + report.getReporter() + 
-                          ", Status=" + report.getStatus() + 
+                    // Log the Report request object being sent for debugging
+                    Log.d("ReportPetActivity", "Report request object sent: " + 
+                          "Pet=" + request.get("pet") + 
+                          ", Reporter=" + request.get("reporter") + 
+                          ", Status=" + request.get("status") + 
                           ", Location=[" + selectedLongitude + "," + selectedLatitude + "]");
                     
                     Toast.makeText(ReportPetActivity.this, errorMessage, Toast.LENGTH_LONG).show();

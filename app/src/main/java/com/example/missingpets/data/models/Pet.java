@@ -10,7 +10,7 @@ public class Pet implements Serializable {
     @SerializedName("_id")
     private String id;
     private User owner; // User object, optional
-    private String createdBy; // ObjectId as String, required
+    private User createdBy; // Can be User object when populated or String when just ID
     private String name; // optional
     private String breed; // optional
     private Double height; // optional, in cm
@@ -24,9 +24,11 @@ public class Pet implements Serializable {
         this.isOwnedByCreator = false; // default value
     }
 
-    public Pet(String createdBy, String name, String breed, Double height, Double weight, 
+    public Pet(String createdById, String name, String breed, Double height, Double weight, 
                String color, List<String> photos) {
-        this.createdBy = createdBy;
+        // Create a User object with just the ID when constructing with String
+        this.createdBy = new User();
+        this.createdBy.setId(createdById);
         this.name = name;
         this.breed = breed;
         this.height = height;
@@ -43,8 +45,22 @@ public class Pet implements Serializable {
     public void setId(String id) { this.id = id; }    public User getOwner() { return owner; }
     public void setOwner(User owner) { this.owner = owner; }
 
-    public String getCreatedBy() { return createdBy; }
-    public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
+    public User getCreatedByUser() { return createdBy; }
+    public void setCreatedByUser(User createdBy) { this.createdBy = createdBy; }
+    
+    // Backwards compatibility methods for String ID
+    public String getCreatedBy() { 
+        return createdBy != null ? createdBy.getId() : null; 
+    }
+    
+    public void setCreatedBy(String createdById) { 
+        if (createdById != null) {
+            this.createdBy = new User();
+            this.createdBy.setId(createdById);
+        } else {
+            this.createdBy = null;
+        }
+    }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

@@ -1,5 +1,7 @@
 package com.example.missingpets.data.api;
 
+import com.example.missingpets.data.models.Pet;
+import com.example.missingpets.data.models.PetDeserializer;
 import com.example.missingpets.utils.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,9 +38,10 @@ public class ApiClient {
                     .writeTimeout(Constants.TIMEOUT_SECONDS, TimeUnit.SECONDS)
                     .build();
             
-            // Create Gson instance
+            // Create Gson instance with custom deserializers
             Gson gson = new GsonBuilder()
                     .setLenient()
+                    .registerTypeAdapter(Pet.class, new PetDeserializer())
                     .create();
             
             // Create Retrofit instance

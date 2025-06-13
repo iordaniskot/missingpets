@@ -10,6 +10,7 @@ import com.example.missingpets.data.models.RegisterRequest;
 import com.example.missingpets.data.models.User;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -53,7 +54,7 @@ public interface ApiService {
                                @Query("status") String status,
                                @Query("location") String location);    // Report endpoints
     @POST("reports")
-    Call<Report> createReport(@Header("Authorization") String token, @Body Report report);
+    Call<Report> createReport(@Header("Authorization") String token, @Body Map<String, Object> request);
     
     @GET("reports")
     Call<ReportsResponse> getReports(@Header("Authorization") String token);
