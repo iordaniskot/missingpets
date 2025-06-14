@@ -39,13 +39,8 @@
     <!-- Success messages -->
     <string name="registration_success">Account created successfully!</string>
     <string name="login_success">Welcome back!</string>
-    
-    <!-- Main menu -->
-    <string name="profile">Profile</string>
-    <string name="settings">Settings</string>
-    <string name="about">About</string>
+
     <string name="logout">Logout</string>
-    
     <!-- Main screen -->
     <string name="welcome_to_missing_pets">Welcome to Missing Pets</string>
     <string name="report_missing_pet">Report Missing Pet</string>
@@ -55,7 +50,7 @@
     <string name="development_phase">Development Phase</string>
     <string name="auth_complete">Authentication system is now complete and functional.</string>
     <string name="next_features">Next features to be implemented:</string>
-    <string name="feature_main_screen">• Main dashboard with pet listings</string>
-    <string name="feature_map">• Interactive map with pet locations</string>
+    <string name="feature_messaging">• In App Messaging</string>
+    <string name="feature_image">• Pet image upload for better ux</string>
     <string name="feature_profile">• User profile management</string>
 </resources>

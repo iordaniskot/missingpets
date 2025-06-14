@@ -308,14 +308,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@string/feature_main_screen"
+                        android:text="@string/feature_messaging"
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/feature_map"
+                        android:text="@string/feature_image"
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp" />
 

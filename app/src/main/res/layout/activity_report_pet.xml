@@ -135,20 +135,6 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName" />
 
-                </com.google.android.material.textfield.TextInputLayout>                <!-- Pet Type -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Pet Type (e.g., Dog, Cat, Bird)"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/acPetType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Pet Breed -->

@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +41,6 @@ public class ReportPetActivity extends AppCompatActivity {
     private TextInputEditText etPetHeight, etPetWeight;
     private TextInputEditText etLocation, etLastSeenDate, etLastSeenTime;
     private TextInputLayout tilLocation;
-    private AutoCompleteTextView acPetType;
     private MaterialButton btnAddPhoto, btnSubmitReport;
     
     private PreferenceManager preferenceManager;
@@ -66,7 +63,6 @@ public class ReportPetActivity extends AppCompatActivity {
         
         initViews();
         setupToolbar();
-        setupDropdowns();
         setupDateTimePickers();
         setupClickListeners();
         prefillUserInfo();
@@ -81,7 +77,6 @@ public class ReportPetActivity extends AppCompatActivity {
         tilLocation = findViewById(R.id.tilLocation);
         etLastSeenDate = findViewById(R.id.etLastSeenDate);
         etLastSeenTime = findViewById(R.id.etLastSeenTime);
-        acPetType = findViewById(R.id.acPetType);
         btnAddPhoto = findViewById(R.id.btnAddPhoto);
         btnSubmitReport = findViewById(R.id.btnSubmitReport);
     }
@@ -95,14 +90,6 @@ public class ReportPetActivity extends AppCompatActivity {
         }
         
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-    }
-      private void setupDropdowns() {
-        // Pet Type dropdown
-        String[] petTypes = {"Dog", "Cat", "Bird", "Rabbit", "Hamster", "Guinea Pig", "Fish", "Reptile", "Other"};
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, petTypes);
-        acPetType.setAdapter(typeAdapter);
-        
-        // Note: Size dropdown removed - now using height and weight fields
     }
     
     private void setupDateTimePickers() {
