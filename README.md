@@ -27,11 +27,10 @@ A comprehensive Android application for reporting and finding missing pets. This
 
 ### Core Functionality
 - **User Authentication**: Secure registration and login system
-- **Report Missing Pets**: Create detailed reports with photos and location
+- **Report Missing Pets**: Create detailed reports with location
 - **Search Found Pets**: Browse and filter reports of found pets
 - **Location-Based Search**: Find pets within specific radius using GPS
 - **Interactive Maps**: View pet locations on Google Maps
-- **Photo Management**: Upload and view multiple photos per report
 - **Real-time Updates**: Stay updated with latest reports
 
 ### Advanced Features
@@ -39,8 +38,6 @@ A comprehensive Android application for reporting and finding missing pets. This
 - **Smart Filtering**: Filter by status (lost/found), date, location
 - **Report Management**: Edit and update your reports
 - **Offline Support**: Basic functionality works offline
-- **Secure Storage**: Encrypted local data storage
-- **Push Notifications**: Get notified about relevant reports
 
 ## 🛠️ Tech Stack
 
@@ -60,7 +57,6 @@ A comprehensive Android application for reporting and finding missing pets. This
 - **Permissions**:
   - Internet access for API communication
   - Location access for geospatial features
-  - Storage access for photo uploads
 - **Google Play Services**: Required for Maps functionality
 - **Network**: Internet connection required for full functionality
 
@@ -97,7 +93,7 @@ A comprehensive Android application for reporting and finding missing pets. This
 4. **Configure Backend URL**
    - Update the base URL in `ApiClient.java` to point to your backend server
    ```java
-   private static final String BASE_URL = "http://your-server-url:3000/api/";
+   private static final String BASE_URL = "https://missingpets.rhodesholidaysvillas.com/api/";
    ```
 
 5. **Build and Run**
@@ -138,7 +134,6 @@ A comprehensive Android application for reporting and finding missing pets. This
 ### Design System
 - **Material Design**: Modern, consistent UI components
 - **Responsive Layout**: Adapts to different screen sizes
-- **Dark/Light Theme**: Follows system theme preferences
 - **Accessibility**: Screen reader support and proper contrast ratios
 
 ### User Experience
@@ -150,7 +145,6 @@ A comprehensive Android application for reporting and finding missing pets. This
 ## 🔒 Security Features
 
 - **JWT Authentication**: Secure token-based authentication
-- **Encrypted Storage**: Sensitive data encrypted locally
 - **Network Security**: HTTPS communication with certificate pinning
 - **Input Validation**: Client-side validation for all user inputs
 - **Permission Management**: Proper handling of runtime permissions
@@ -162,7 +156,6 @@ The app integrates with the Missing Pets Backend API for:
 - User authentication and profile management
 - CRUD operations for pets and reports
 - Geospatial search queries
-- File uploads for pet photos
 - Real-time updates via WebSocket connections
 
 ### API Endpoints Used
@@ -198,9 +191,8 @@ The app integrates with the Missing Pets Backend API for:
 ### Reporting a Missing Pet
 1. Tap "Report Missing Pet" from the main menu
 2. Fill in pet details (name, breed, description)
-3. Add photos of your pet
-4. Set the last known location on the map
-5. Submit the report
+3. Set the last known location on the map
+4. Submit the report
 
 ### Searching for Found Pets
 1. Tap "Search Found Pets" from the main menu
@@ -220,36 +212,11 @@ The app integrates with the Missing Pets Backend API for:
 - **Server URL**: Configure backend server endpoint
 - **Location Settings**: Adjust location accuracy and update intervals
 - **Notification Settings**: Configure push notification preferences
-- **Theme Settings**: Choose between light/dark themes
 
 ### Development Settings
 - **Debug Mode**: Enable additional logging for development
 - **Mock Data**: Use sample data for testing without backend
 - **API Timeout**: Configure network request timeouts
-
-## 🚀 Deployment
-
-### Release Build
-1. **Generate Signed APK**:
-   - Build → Generate Signed Bundle/APK
-   - Choose APK and create/use existing keystore
-   - Select release build variant
-
-2. **ProGuard Configuration**:
-   - Code obfuscation enabled for release builds
-   - API models and networking classes preserved
-
-3. **Testing Checklist**:
-   - Test on multiple device sizes and Android versions
-   - Verify all permissions work correctly
-   - Test offline functionality
-   - Validate Google Maps integration
-
-### Play Store Release
-- Follow Google Play Console guidelines
-- Provide app descriptions and screenshots
-- Set up app signing and security settings
-- Configure content rating and target audience
 
 ## 🤝 Contributing
 
@@ -264,10 +231,6 @@ The app integrates with the Missing Pets Backend API for:
 - Use meaningful variable and method names
 - Add comments for complex logic
 - Maintain consistent indentation
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🆘 Support & Troubleshooting
 
@@ -288,15 +251,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Check API key has Maps SDK enabled
 - Ensure device has Google Play Services
 
-**Photo Upload Issues**:
-- Grant storage permissions
-- Check available device storage
-- Verify image size is within limits
-
 ### Getting Help
 - Check the logs in Android Studio for detailed error messages
 - Review the API documentation for backend integration
-- Contact support with device model, Android version, and error description
+- Create an issue in this repository for bugs or feature requests
 
 ## 🔄 Updates & Roadmap
 
@@ -307,18 +265,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Updated Material Design components
 
 ### Planned Features
+- Photo upload functionality for pet reports
 - Push notifications for nearby reports
 - In-app messaging between users
+- Dark/light theme support
 - Advanced photo recognition features
 - Social sharing capabilities
 - Multi-language support
-
-## 📞 Contact
-
-For questions, suggestions, or support, please contact:
-- **Email**: support@missingpets.app
-- **GitHub Issues**: Create an issue in this repository
-- **Documentation**: Check the wiki for detailed guides
 
 ---
 
