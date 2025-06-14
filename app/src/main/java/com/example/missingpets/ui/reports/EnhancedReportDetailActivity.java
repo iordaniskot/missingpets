@@ -3,6 +3,7 @@ package com.example.missingpets.ui.reports;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,6 +76,9 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
         tvReporterInfo = findViewById(R.id.tvReporterInfo);
         fabCall = findViewById(R.id.fabCall);
         fabMap = findViewById(R.id.fabMap);
+        
+        // Initially hide call FAB, will be shown if phone number is available
+        fabCall.setVisibility(View.GONE);
     }
     
     private void displayReportData() {
@@ -189,10 +193,39 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
     }
     
     private void setupFabListeners() {
-        // Contact FAB - placeholder for now
-        fabCall.setOnClickListener(v -> {
-            Toast.makeText(this, "Contact feature coming soon!", Toast.LENGTH_SHORT).show();
-        });
+        // Debug logging for reporter information
+        Log.d("EnhancedReportDetail", "Setting up FAB listeners");
+        Log.d("EnhancedReportDetail", "Reporter: " + (report.getReporter() != null ? "Available" : "NULL"));
+        if (report.getReporter() != null) {
+            Log.d("EnhancedReportDetail", "Phone: " + report.getReporter().getPhone());
+        }
+        
+        // Contact FAB - check if phone number is available
+        if (report.getReporter() != null && 
+            report.getReporter().getPhone() != null && 
+            !report.getReporter().getPhone().isEmpty()) {
+            
+            Log.d("EnhancedReportDetail", "Phone number available, showing call FAB");
+            
+            fabCall.setOnClickListener(v -> {
+                String phoneNumber = report.getReporter().getPhone();
+                try {
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(Uri.parse("tel:" + phoneNumber));
+                    startActivity(callIntent);
+                } catch (Exception e) {
+                    Log.e("EnhancedReportDetail", "Error opening phone app", e);
+                    Toast.makeText(this, "Unable to open phone app", Toast.LENGTH_SHORT).show();
+                }
+            });
+            
+            // Show the call button since phone number is available
+            fabCall.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("EnhancedReportDetail", "No phone number available, hiding call FAB");
+            // Hide the call button if no phone number is available
+            fabCall.setVisibility(View.GONE);
+        }
         
         // Map FAB - open location in maps app
         fabMap.setOnClickListener(v -> {
