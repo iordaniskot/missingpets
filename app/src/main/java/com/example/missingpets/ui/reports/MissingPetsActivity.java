@@ -27,7 +27,6 @@ import com.example.missingpets.data.models.ReportWithPet;
 import com.example.missingpets.data.models.ReportsResponse;
 import com.example.missingpets.data.models.User;
 import com.example.missingpets.utils.PreferenceManager;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,6 @@ public class MissingPetsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EnhancedReportListAdapter adapter;
     private ProgressBar progressBar;
-    private TabLayout tabLayout;
     private TextInputEditText etSearch;
     private MaterialButton btnFilter;
     private FloatingActionButton fabMapView;
@@ -73,7 +71,6 @@ public class MissingPetsActivity extends AppCompatActivity {
         
         setupToolbar();
         setupViews();
-        setupTabLayout();
         
         Log.d("MissingPetsActivity", "UI setup complete, loading initial reports");
         loadReports(TAB_ALL);
@@ -90,7 +87,6 @@ public class MissingPetsActivity extends AppCompatActivity {
       private void setupViews() {
         recyclerView = findViewById(R.id.recyclerViewReports);
         progressBar = findViewById(R.id.progressBar);
-        tabLayout = findViewById(R.id.tabLayout);
         etSearch = findViewById(R.id.etSearch);
         btnFilter = findViewById(R.id.btnFilter);
         fabMapView = findViewById(R.id.fabMapView);
@@ -103,26 +99,6 @@ public class MissingPetsActivity extends AppCompatActivity {
         setupSearchFunctionality();
         setupFilterFunctionality();
         setupMapViewFunctionality();
-    }
-    
-    private void setupTabLayout() {
-        tabLayout.addTab(tabLayout.newTab().setText("All Reports").setTag(TAB_ALL));
-        tabLayout.addTab(tabLayout.newTab().setText("Missing").setTag(TAB_MISSING));
-        tabLayout.addTab(tabLayout.newTab().setText("Found").setTag(TAB_FOUND));
-          tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                String tabTag = (String) tab.getTag();
-                currentStatus = tabTag;
-                applyFilters();
-            }
-            
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
-            
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
     }
     
     private void setupSearchFunctionality() {

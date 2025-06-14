@@ -9,20 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- App Bar -->
+>
+        <!-- Toolbar -->
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_alignParentTop="true"
+            android:background="@color/primary"
+            android:fitsSystemWindows="true"
+            >
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:title="Report Missing Pet"
+                android:background="@color/primary"
+                app:title="Search Missing Pets"
                 app:navigationIcon="@drawable/ic_back" />
 
         </com.google.android.material.appbar.AppBarLayout>
