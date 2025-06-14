@@ -28,8 +28,8 @@ A comprehensive Android application for reporting and finding missing pets. This
 ### Core Functionality
 - **User Authentication**: Secure registration and login system
 - **Report Missing Pets**: Create detailed reports with location
-- **Search Found Pets**: Browse and filter reports of found pets
-- **Location-Based Search**: Find pets within specific radius using GPS
+- **Search Found Pets**: Browse and filter reports of pets
+- **Location-Based Search**: Find pets within a specific radius using GPS
 - **Interactive Maps**: View pet locations on Google Maps
 - **Real-time Updates**: Stay updated with latest reports
 
