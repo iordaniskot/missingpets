@@ -2,16 +2,11 @@ package com.example.missingpets;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.missingpets.ui.auth.LoginActivity;
 import com.example.missingpets.ui.reports.MissingPetsActivity;
@@ -41,12 +36,6 @@ public class MainActivity extends AppCompatActivity {
         }
         
         setupUI();
-        
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
     
     private void setupUI() {
@@ -87,36 +76,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MapViewActivity.class);
             startActivity(intent);
         });
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        
-        if (itemId == R.id.action_logout) {
-            logout();
-            return true;
-        } else if (itemId == R.id.action_profile) {
-            // TODO: Navigate to profile screen
-            Toast.makeText(this, "Profile feature coming soon!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (itemId == R.id.action_settings) {
-            // TODO: Navigate to settings screen
-            Toast.makeText(this, "Settings feature coming soon!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (itemId == R.id.action_about) {
-            // TODO: Show about dialog
-            Toast.makeText(this, "Missing Pets v1.0 - Reuniting families, one pet at a time", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        
-        return super.onOptionsItemSelected(item);
     }
     
     private void logout() {
