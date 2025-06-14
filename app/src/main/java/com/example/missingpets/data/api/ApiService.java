@@ -16,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -63,6 +64,10 @@ public interface ApiService {
     Call<ReportsResponse> getReportsByStatus(@Header("Authorization") String token, @Query("status") String status);
       @GET("reports/{id}")
     Call<Report> getReportById(@Header("Authorization") String token, @Path("id") String reportId);
+    
+    // Mark report as found
+    @PATCH("reports/{id}/found")
+    Call<Report> markReportAsFound(@Header("Authorization") String token, @Path("id") String reportId);
     
     // Geospatial search for reports within radius
     @GET("reports")

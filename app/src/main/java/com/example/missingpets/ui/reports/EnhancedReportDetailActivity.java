@@ -9,18 +9,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.missingpets.R;
+import com.example.missingpets.data.api.ApiClient;
+import com.example.missingpets.data.models.Report;
 import com.example.missingpets.data.models.ReportWithPet;
 import com.example.missingpets.ui.pets.PetDetailActivity;
+import com.example.missingpets.utils.PreferenceManager;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EnhancedReportDetailActivity extends AppCompatActivity {
     
@@ -39,12 +47,16 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
     private MaterialButton btnFoundIt;
     
     private ReportWithPet report;
+    private PreferenceManager preferenceManager;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enhanced_report_detail);
+        
+        // Initialize PreferenceManager
+        preferenceManager = PreferenceManager.getInstance(this);
         
         // Get report data from intent
         report = (ReportWithPet) getIntent().getSerializableExtra(EXTRA_REPORT);
@@ -91,20 +103,8 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
         // Set report title using enhanced display title
         tvReportTitle.setText(report.getDisplayTitle());
         
-        // Set status chip
-        if ("lost".equals(report.getStatus())) {
-            chipStatus.setText("MISSING");
-            chipStatus.setChipBackgroundColorResource(R.color.error);
-            chipStatus.setTextColor(getColor(R.color.white));
-        } else if ("found".equals(report.getStatus())) {
-            chipStatus.setText("FOUND");
-            chipStatus.setChipBackgroundColorResource(R.color.success);
-            chipStatus.setTextColor(getColor(R.color.white));
-        } else {
-            chipStatus.setText("UNKNOWN");
-            chipStatus.setChipBackgroundColorResource(R.color.text_secondary);
-            chipStatus.setTextColor(getColor(R.color.white));
-        }
+        // Update status display
+        updateStatusDisplay();
         
         // Set description
         if (report.getDescription() != null && !report.getDescription().isEmpty()) {
@@ -263,18 +263,107 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
     }
     
     private void onFoundItClicked() {
-        // Show confirmation dialog or direct action
-        Toast.makeText(this, "Great! Thanks for letting us know you found " + 
-            (report.getPet() != null ? report.getPet().getDisplayName() : "the pet") + "!", 
-            Toast.LENGTH_LONG).show();
+        // Only allow marking lost pets as found
+        if (!"lost".equals(report.getStatus())) {
+            Toast.makeText(this, "This report is already marked as found", Toast.LENGTH_SHORT).show();
+            return;
+        }
         
-        // TODO: In a real app, you would:
-        // 1. Update the report status to "resolved" via API
-        // 2. Send notification to the pet owner
-        // 3. Mark the report as closed
-        // 4. Optionally redirect to a success page
+        String petName = report.getPet() != null ? report.getPet().getDisplayName() : "the pet";
         
-        Log.d("EnhancedReportDetail", "Found It button clicked for report: " + report.getId());
+        // Show confirmation dialog
+        new AlertDialog.Builder(this)
+            .setTitle("Mark as Found")
+            .setMessage("Are you sure you found " + petName + "? This action will notify the owner and close the report.")
+            .setPositiveButton("Yes, Found It!", (dialog, which) -> markReportAsFound())
+            .setNegativeButton("Cancel", null)
+            .show();
+    }
+    
+    private void markReportAsFound() {
+        // Disable button to prevent multiple clicks
+        btnFoundIt.setEnabled(false);
+        btnFoundIt.setText("Marking as Found...");
+        
+        String authToken = "Bearer " + preferenceManager.getAuthToken();
+        
+        Call<Report> call = ApiClient.getApiService().markReportAsFound(authToken, report.getId());
+        call.enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Report updatedReport = response.body();
+                    
+                    // Update local report status
+                    report.setStatus(updatedReport.getStatus());
+                    
+                    // Update UI
+                    updateStatusDisplay();
+                    
+                    // Show success message
+                    String petName = report.getPet() != null ? report.getPet().getDisplayName() : "the pet";
+                    Toast.makeText(EnhancedReportDetailActivity.this, 
+                        "Great! Thanks for letting us know you found " + petName + "!", 
+                        Toast.LENGTH_LONG).show();
+                    
+                    // Hide the Found It button since it's no longer needed
+                    btnFoundIt.setVisibility(View.GONE);
+                    
+                    Log.d("EnhancedReportDetail", "Report marked as found successfully: " + report.getId());
+                } else {
+                    // Handle error
+                    String errorMessage = "Failed to mark report as found. Please try again.";
+                    if (response.code() == 400) {
+                        errorMessage = "This report can only be marked as found if it's currently lost.";
+                    } else if (response.code() == 404) {
+                        errorMessage = "Report not found.";
+                    }
+                    
+                    Toast.makeText(EnhancedReportDetailActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                    Log.e("EnhancedReportDetail", "Failed to mark report as found. Response code: " + response.code());
+                }
+                
+                // Re-enable button
+                btnFoundIt.setEnabled(true);
+                btnFoundIt.setText("Found It!");
+            }
+            
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+                // Handle network error
+                Toast.makeText(EnhancedReportDetailActivity.this, 
+                    "Network error. Please check your connection and try again.", 
+                    Toast.LENGTH_LONG).show();
+                Log.e("EnhancedReportDetail", "Network error marking report as found", t);
+                
+                // Re-enable button
+                btnFoundIt.setEnabled(true);
+                btnFoundIt.setText("Found It!");
+            }
+        });
+    }
+    
+    private void updateStatusDisplay() {
+        // Update status chip based on current report status
+        if ("lost".equals(report.getStatus())) {
+            chipStatus.setText("MISSING");
+            chipStatus.setChipBackgroundColorResource(R.color.error);
+            chipStatus.setTextColor(getColor(R.color.white));
+            // Show Found It button for lost pets
+            btnFoundIt.setVisibility(View.VISIBLE);
+        } else if ("found".equals(report.getStatus())) {
+            chipStatus.setText("FOUND");
+            chipStatus.setChipBackgroundColorResource(R.color.success);
+            chipStatus.setTextColor(getColor(R.color.white));
+            // Hide Found It button for already found pets
+            btnFoundIt.setVisibility(View.GONE);
+        } else {
+            chipStatus.setText("UNKNOWN");
+            chipStatus.setChipBackgroundColorResource(R.color.text_secondary);
+            chipStatus.setTextColor(getColor(R.color.white));
+            // Hide Found It button for unknown status
+            btnFoundIt.setVisibility(View.GONE);
+        }
     }
     
     @Override
