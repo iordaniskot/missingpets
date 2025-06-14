@@ -17,7 +17,6 @@ import com.example.missingpets.R;
 import com.example.missingpets.data.api.ApiClient;
 import com.example.missingpets.data.models.Report;
 import com.example.missingpets.data.models.ReportWithPet;
-import com.example.missingpets.ui.pets.PetDetailActivity;
 import com.example.missingpets.utils.PreferenceManager;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
