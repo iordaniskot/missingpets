@@ -312,6 +312,20 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Found It Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFoundIt"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="80dp"
+                android:text="Found It!"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/success"
+                app:cornerRadius="8dp" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

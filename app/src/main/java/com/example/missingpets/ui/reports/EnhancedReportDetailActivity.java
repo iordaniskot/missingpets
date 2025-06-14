@@ -17,6 +17,7 @@ import com.example.missingpets.data.models.ReportWithPet;
 import com.example.missingpets.ui.pets.PetDetailActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -35,6 +36,7 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
     private TextView tvReporterInfo;
     private FloatingActionButton fabCall;
     private FloatingActionButton fabMap;
+    private MaterialButton btnFoundIt;
     
     private ReportWithPet report;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
@@ -76,9 +78,13 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
         tvReporterInfo = findViewById(R.id.tvReporterInfo);
         fabCall = findViewById(R.id.fabCall);
         fabMap = findViewById(R.id.fabMap);
+        btnFoundIt = findViewById(R.id.btnFoundIt);
         
         // Initially hide call FAB, will be shown if phone number is available
         fabCall.setVisibility(View.GONE);
+        
+        // Set up Found It button click listener
+        btnFoundIt.setOnClickListener(v -> onFoundItClicked());
     }
     
     private void displayReportData() {
@@ -254,6 +260,21 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
       private String capitalizeFirst(String text) {
         if (text == null || text.isEmpty()) return text;
         return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+    }
+    
+    private void onFoundItClicked() {
+        // Show confirmation dialog or direct action
+        Toast.makeText(this, "Great! Thanks for letting us know you found " + 
+            (report.getPet() != null ? report.getPet().getDisplayName() : "the pet") + "!", 
+            Toast.LENGTH_LONG).show();
+        
+        // TODO: In a real app, you would:
+        // 1. Update the report status to "resolved" via API
+        // 2. Send notification to the pet owner
+        // 3. Mark the report as closed
+        // 4. Optionally redirect to a success page
+        
+        Log.d("EnhancedReportDetail", "Found It button clicked for report: " + report.getId());
     }
     
     @Override
