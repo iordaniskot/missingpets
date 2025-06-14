@@ -138,8 +138,21 @@ public class EnhancedReportDetailActivity extends AppCompatActivity {
             tvReportDate.setText("Report date unknown");
         }
         
-        // Set reporter info
-        tvReporterInfo.setText("Reporter: " + report.getReporterName());
+        // Set reporter info with contact details
+        StringBuilder reporterInfo = new StringBuilder();
+        reporterInfo.append("Reporter: ").append(report.getReporterName()).append("\n");
+        
+        if (report.getReporter() != null) {
+            if (report.getReporter().getEmail() != null && !report.getReporter().getEmail().isEmpty()) {
+                reporterInfo.append("Email: ").append(report.getReporter().getEmail()).append("\n");
+            }
+            
+            if (report.getReporter().getPhone() != null && !report.getReporter().getPhone().isEmpty()) {
+                reporterInfo.append("Phone: ").append(report.getReporter().getPhone());
+            }
+        }
+        
+        tvReporterInfo.setText(reporterInfo.toString().trim());
         
         // Set pet image
         setPetImage();
